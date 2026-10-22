@@ -1,0 +1,100 @@
+# Databricks Asset Bundle: deploys the code and the credit risk job to a Databricks workspace.
+# Works on Databricks Free Edition (serverless compute, Unity Catalog).
+#
+#   databricks bundle validate
+#   databricks bundle deploy -t dev
+#   databricks bundle run credit_risk_pipeline -t dev
+#
+# Before the first run, upload the Home Credit files to the volume set in raw_dir
+# (see docs/databricks.md).
+bundle:
+  name: fintech-credit-risk-analytics
+
+# The Python package (src/credit + the gold SQL files) is built and uploaded on deploy.
+artifacts:
+  credit_package:
+    type: whl
+    path: .
+    build: python -m pip wheel . --no-deps -w dist
+
+variables:
+  catalog:
+    description: Unity Catalog catalog; tables go to <catalog>.credit_bronze / credit_silver / credit_gold
+    default: workspace
+  raw_dir:
+    description: Unity Catalog volume holding the Home Credit CSV files
+    default: /Volumes/workspace/credit_raw/home_credit
+
+resources:
+  jobs:
+    credit_risk_pipeline:
+      name: credit-risk-pipeline
+      # One task per step: if a step fails, the following ones do not run and the
+      # failed step can be repaired and re-run alone.
+      environments:
+        - environment_key: default
+          spec:
+            client: "2"
+            dependencies:
+              - ./dist/*.whl
+              - scipy>=1.10
+      tasks:
+        - task_key: bronze
+          environment_key: default
+          python_wheel_task:
+            package_name: credit
+            entry_point: credit-pipeline
+            parameters: ["--step", "bronze", "--catalog", "${var.catalog}", "--raw-dir", "${var.raw_dir}"]
+        - task_key: silver
+          environment_key: default
+          depends_on:
+            - task_key: bronze
+          python_wheel_task:
+            package_name: credit
+            entry_point: credit-pipeline
+            parameters: ["--step", "silver", "--catalog", "${var.catalog}", "--raw-dir", "${var.raw_dir}"]
+        - task_key: gold
+          environment_key: default
+          depends_on:
+            - task_key: silver
+          python_wheel_task:
+            package_name: credit
+            entry_point: credit-pipeline
+            parameters: ["--step", "gold", "--catalog", "${var.catalog}", "--raw-dir", "${var.raw_dir}"]
+        - task_key: quality
+          environment_key: default
+          depends_on:
+            - task_key: gold
+          python_wheel_task:
+            package_name: credit
+            entry_point: credit-pipeline
+            parameters: ["--step", "quality", "--catalog", "${var.catalog}", "--raw-dir", "${var.raw_dir}"]
+        - task_key: analysis
+          environment_key: default
+          depends_on:
+            - task_key: quality
+          python_wheel_task:
+            package_name: credit
+            entry_point: credit-pipeline
+            parameters: ["--step", "analysis", "--catalog", "${var.catalog}", "--raw-dir", "${var.raw_dir}"]
+        - task_key: scorecard
+          environment_key: default
+          depends_on:
+            - task_key: quality  # runs in parallel with the statistical analysis
+          python_wheel_task:
+            package_name: credit
+            entry_point: credit-pipeline
+            parameters: ["--step", "scorecard", "--catalog", "${var.catalog}", "--raw-dir", "${var.raw_dir}"]
+        - task_key: policy
+          environment_key: default
+          depends_on:
+            - task_key: scorecard
+          python_wheel_task:
+            package_name: credit
+            entry_point: credit-pipeline
+            parameters: ["--step", "policy", "--catalog", "${var.catalog}", "--raw-dir", "${var.raw_dir}"]
+
+targets:
+  dev:
+    mode: development
+    default: true
