@@ -1,0 +1,49 @@
+/// Results of the data quality gate.
+table 'Data Quality'
+	lineageTag: 3a2929ad-6f4c-486b-9398-0140f9f5a9b4
+
+	column Name
+		dataType: string
+		lineageTag: 34f0da22-fcc6-44ab-877a-22a515e92852
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Severity
+		dataType: string
+		lineageTag: f314c9c7-4708-4347-b806-633d2efa4f42
+		summarizeBy: none
+		sourceColumn: severity
+
+		annotation SummarizationSetBy = Automatic
+
+	column Passed
+		dataType: boolean
+		lineageTag: ab5fa0c8-2919-4363-bc76-2883b63239f2
+		summarizeBy: none
+		sourceColumn: passed
+
+		annotation SummarizationSetBy = Automatic
+
+	column Detail
+		dataType: string
+		lineageTag: c2d27755-f106-4424-8d37-cbc05cf029e8
+		summarizeBy: none
+		sourceColumn: detail
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Data Quality' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "dq_results.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"name", type text}, {"severity", type text}, {"passed", type logical}, {"detail", type text}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

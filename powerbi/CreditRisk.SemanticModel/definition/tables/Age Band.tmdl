@@ -1,0 +1,46 @@
+/// Age of the applicant.
+table 'Age Band'
+	lineageTag: 2c2d9b3c-008a-4d3d-9cd4-41f1aa7782c9
+
+	column 'Age Band Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d547a637-31fd-4bb0-8d90-9775396b15c6
+		summarizeBy: none
+		sourceColumn: age_band_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Band'
+		dataType: string
+		lineageTag: 0a9a7256-d3a2-4f9f-a06a-35d9fa1e78fc
+		summarizeBy: none
+		sourceColumn: age_band
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0b07c3d9-7616-42ff-9ab6-4b2108f9e153
+		summarizeBy: none
+		sourceColumn: sort_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Age Band' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "dim_age_band.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"age_band_key", Int64.Type}, {"age_band", type text}, {"sort_order", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

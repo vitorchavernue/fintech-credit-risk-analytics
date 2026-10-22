@@ -1,0 +1,46 @@
+/// Earlier requests refused by Home Credit.
+table 'Previous Refusals'
+	lineageTag: 795b6bcb-7c99-4c8f-8885-a6af822e7c7b
+
+	column 'Previous Refusals Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3a48abd5-a5b6-43d1-87b5-ae7f42374360
+		summarizeBy: none
+		sourceColumn: previous_refusals_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Previous Refusals'
+		dataType: string
+		lineageTag: 3203e5fd-be52-4bf0-a320-3388d42f950b
+		summarizeBy: none
+		sourceColumn: previous_refusals
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c0700e67-cb8e-47a0-92e7-a6363382e15e
+		summarizeBy: none
+		sourceColumn: sort_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Previous Refusals' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "dim_previous_refusals.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"previous_refusals_key", Int64.Type}, {"previous_refusals", type text}, {"sort_order", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

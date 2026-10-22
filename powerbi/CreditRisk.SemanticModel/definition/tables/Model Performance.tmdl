@@ -1,0 +1,97 @@
+/// AUC, Gini and KS of the credit score on training and unseen customers.
+table 'Model Performance'
+	lineageTag: 230aa1fd-41ac-46d3-932b-29cb8ac2f361
+
+	/// AUC on customers never seen by the model (0.5 = coin toss, 1 = perfect ranking).
+	measure 'AUC (Unseen)' = CALCULATE ( MAX ( 'Model Performance'[AUC] ), 'Model Performance'[Sample] = "test" )
+		formatString: 0.000
+		displayFolder: Measures
+		lineageTag: e85baf9d-13eb-42e1-9a03-9859f48c9471
+
+	/// Gini = 2 x AUC - 1, the market's usual score quality measure.
+	measure 'Gini (Unseen)' = CALCULATE ( MAX ( 'Model Performance'[Gini] ), 'Model Performance'[Sample] = "test" )
+		formatString: 0.000
+		displayFolder: Measures
+		lineageTag: 355f5e6f-199e-4583-a1e9-933620184499
+
+	/// Largest gap between how good and bad customers spread along the score (above 0.30 = good).
+	measure 'KS (Unseen)' = CALCULATE ( MAX ( 'Model Performance'[KS] ), 'Model Performance'[Sample] = "test" )
+		formatString: 0.000
+		displayFolder: Measures
+		lineageTag: 170bdc0a-a8f7-4233-935a-2e2cc548eb8a
+
+	column Sample
+		dataType: string
+		lineageTag: 67f1e94b-4b07-4425-82af-42341588432c
+		summarizeBy: none
+		sourceColumn: sample
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customers
+		dataType: int64
+		formatString: #,0
+		lineageTag: 59cb8d65-2e5b-4bd9-a3fe-99987386ad7b
+		summarizeBy: none
+		sourceColumn: customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column Defaults
+		dataType: int64
+		formatString: #,0
+		lineageTag: 6c962ce7-2add-4974-b677-b567c15d6865
+		summarizeBy: none
+		sourceColumn: defaults
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 528b2644-e744-40b2-b034-542e052a63a5
+		summarizeBy: none
+		sourceColumn: default_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column AUC
+		dataType: double
+		formatString: 0.000
+		lineageTag: be29ec25-ca74-4470-b149-506fd1063506
+		summarizeBy: none
+		sourceColumn: auc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gini
+		dataType: double
+		formatString: 0.000
+		lineageTag: 2deb6e6b-d7d4-4882-91e3-0104b5a49b6e
+		summarizeBy: none
+		sourceColumn: gini
+
+		annotation SummarizationSetBy = Automatic
+
+	column KS
+		dataType: double
+		formatString: 0.000
+		lineageTag: f2327a83-711f-47bf-8e5f-3b92dc79e763
+		summarizeBy: none
+		sourceColumn: ks
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Model Performance' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "model_performance.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"sample", type text}, {"customers", Int64.Type}, {"defaults", Int64.Type}, {"default_rate", type number}, {"auc", type number}, {"gini", type number}, {"ks", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

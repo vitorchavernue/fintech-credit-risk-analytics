@@ -1,0 +1,46 @@
+/// Declared annual income.
+table 'Income Band'
+	lineageTag: 4193b1be-f8fd-48a4-ad21-5adba2909ded
+
+	column 'Income Band Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d0554de7-8fd3-43f4-afcc-513e201956ad
+		summarizeBy: none
+		sourceColumn: income_band_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income Band'
+		dataType: string
+		lineageTag: 083e2cd5-e999-4f47-8286-e0aa166ccaef
+		summarizeBy: none
+		sourceColumn: income_band
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5d03847b-178c-4399-ad07-e43682e60b67
+		summarizeBy: none
+		sourceColumn: sort_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Income Band' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "dim_income_band.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"income_band_key", Int64.Type}, {"income_band", type text}, {"sort_order", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

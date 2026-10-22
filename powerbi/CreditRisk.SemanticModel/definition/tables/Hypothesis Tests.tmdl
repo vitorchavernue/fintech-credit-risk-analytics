@@ -1,0 +1,148 @@
+/// Business questions answered with two-proportion tests.
+table 'Hypothesis Tests'
+	lineageTag: 1ac78163-6736-45c1-984a-2e18615a4328
+
+	column Question
+		dataType: string
+		lineageTag: d6bfbd30-68dc-4b8e-993e-58c9aef5aa92
+		summarizeBy: none
+		sourceColumn: question
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group A'
+		dataType: string
+		lineageTag: 80724826-e1bd-4d8d-894a-312b5e0c641b
+		summarizeBy: none
+		sourceColumn: group_a
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group B'
+		dataType: string
+		lineageTag: 80d3c4a2-38b2-4627-8382-7cc9dab13e7a
+		summarizeBy: none
+		sourceColumn: group_b
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customers A'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 65c595de-f9db-4e81-afed-0440af7ea356
+		summarizeBy: none
+		sourceColumn: customers_a
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customers B'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 22185c70-d74b-4361-b621-5da74b5e8d87
+		summarizeBy: none
+		sourceColumn: customers_b
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Rate A'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: c01943d3-ba8f-4a80-80ed-d1fea0e750a1
+		summarizeBy: none
+		sourceColumn: default_rate_a
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Rate B'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e3114d79-e3ea-4793-8bd5-470ed49a9dd6
+		summarizeBy: none
+		sourceColumn: default_rate_b
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Difference pp'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 117d9499-5c7a-45f3-8567-d5e9136923a1
+		summarizeBy: none
+		sourceColumn: difference_pp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Difference CI Low pp'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 07a37801-87eb-4ed6-aa94-f79dcaecefcb
+		summarizeBy: none
+		sourceColumn: difference_ci_low_pp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Difference CI High pp'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 05afbd68-460e-4f5e-8a92-9f53743231b4
+		summarizeBy: none
+		sourceColumn: difference_ci_high_pp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Relative Risk'
+		dataType: double
+		formatString: 0.000
+		lineageTag: e64c449c-b4c1-4f03-8674-b06fad822680
+		summarizeBy: none
+		sourceColumn: relative_risk
+
+		annotation SummarizationSetBy = Automatic
+
+	column Z
+		dataType: double
+		formatString: 0.000
+		lineageTag: 753bcbf6-815c-4f42-a415-2b979475118f
+		summarizeBy: none
+		sourceColumn: z
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'P Value'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 1b30e997-f962-4791-9de3-3008c11a24f9
+		summarizeBy: none
+		sourceColumn: p_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Q Value'
+		dataType: double
+		formatString: 0.000
+		lineageTag: e4c742ef-6094-43eb-b7e8-9cf145538619
+		summarizeBy: none
+		sourceColumn: q_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conclusion
+		dataType: string
+		lineageTag: 7961ab7e-fbcd-4475-926c-39a7d52e6196
+		summarizeBy: none
+		sourceColumn: conclusion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Hypothesis Tests' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "stats_hypothesis_tests.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"question", type text}, {"group_a", type text}, {"group_b", type text}, {"customers_a", Int64.Type}, {"customers_b", Int64.Type}, {"default_rate_a", type number}, {"default_rate_b", type number}, {"difference_pp", type number}, {"difference_ci_low_pp", type number}, {"difference_ci_high_pp", type number}, {"relative_risk", type number}, {"z", type number}, {"p_value", type number}, {"q_value", type number}, {"conclusion", type text}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

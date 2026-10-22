@@ -1,0 +1,61 @@
+/// Approval and default rates by gender at the recommended cutoff.
+table 'Fairness Check'
+	lineageTag: 6b331cad-81d6-4de7-9d99-21763b058792
+
+	column Gender
+		dataType: string
+		lineageTag: 6ae47c44-b27d-429a-afb4-0ff6955e22cf
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Applications
+		dataType: int64
+		formatString: #,0
+		lineageTag: 526543eb-a4d5-4632-9082-41ce46e29ce2
+		summarizeBy: none
+		sourceColumn: applications
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Approval Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d8c53e29-b63d-416f-b388-3600887c9fd6
+		summarizeBy: none
+		sourceColumn: approval_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Rate Approved'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: c3360348-0791-49e4-a8cf-9b8223700b5a
+		summarizeBy: none
+		sourceColumn: default_rate_approved
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Approval Ratio vs Highest'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 14b783c2-e3c9-45e5-a60f-ed6152f4d8af
+		summarizeBy: none
+		sourceColumn: approval_ratio_vs_highest
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fairness Check' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "policy_fairness_check.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"gender", type text}, {"applications", Int64.Type}, {"approval_rate", type number}, {"default_rate_approved", type number}, {"approval_ratio_vs_highest", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

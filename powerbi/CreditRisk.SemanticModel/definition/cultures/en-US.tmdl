@@ -1,0 +1,755 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "credit_applications.default_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Default Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Default rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Default rate (selection)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Observed": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.applications": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Applications"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Applications": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.default_rate_ci_low": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Default Rate CI Low"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "95% CI low": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.default_rate_ci_high": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Default Rate CI High"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "95% CI high": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.total_credit_amount": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Total Credit Amount"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Credit granted": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.estimated_loss": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Estimated Loss"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Estimated loss (LGD slider)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.risk_index": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Risk Index"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "x portfolio average": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.average_probability_of_default": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Average Probability of Default"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Predicted (model)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.average_score": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Average Score"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Average score": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.test_applications": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Test Applications"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Customers kept aside": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.approval_rate_cutoff": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Approval Rate (Cutoff)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Approval rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.defaults_avoided__cutoff": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Defaults Avoided % (Cutoff)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Defaults avoided": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.good_customers_rejected_cutoff": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Good Customers Rejected (Cutoff)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Good customers rejected": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.net_benefit_cutoff": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Net Benefit (Cutoff)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Net benefit vs approve all": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "credit_applications.default_rate_approved_cutoff": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Credit Applications",
+			          "ConceptualProperty": "Default Rate Approved (Cutoff)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Default rate of approved": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hypothesis_tests.question": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hypothesis Tests",
+			          "ConceptualProperty": "Question"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Business question": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hypothesis_tests.default_rate_a": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hypothesis Tests",
+			          "ConceptualProperty": "Default Rate A"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Group A": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hypothesis_tests.default_rate_b": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hypothesis Tests",
+			          "ConceptualProperty": "Default Rate B"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Group B": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hypothesis_tests.relative_risk": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hypothesis Tests",
+			          "ConceptualProperty": "Relative Risk"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Relative risk": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "hypothesis_tests.conclusion": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Hypothesis Tests",
+			          "ConceptualProperty": "Conclusion"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Conclusion": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "model_performance.auc_unseen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Model Performance",
+			          "ConceptualProperty": "AUC (Unseen)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Score AUC (unseen customers)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "AUC (unseen)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "model_performance.gini_unseen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Model Performance",
+			          "ConceptualProperty": "Gini (Unseen)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Gini (unseen)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "model_performance.ks_unseen": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Model Performance",
+			          "ConceptualProperty": "KS (Unseen)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "KS (unseen)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "characteristic_tests.characteristic": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Characteristic Tests",
+			          "ConceptualProperty": "Characteristic"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Characteristic": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "characteristic_tests.information_value": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Characteristic Tests",
+			          "ConceptualProperty": "Information Value"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "IV": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "characteristic_tests.predictive_power": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Characteristic Tests",
+			          "ConceptualProperty": "Predictive Power"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Power": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "champion_challenger.policy": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Champion Challenger",
+			          "ConceptualProperty": "Policy"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Policy": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "champion_challenger.approval_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Champion Challenger",
+			          "ConceptualProperty": "Approval Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Approval": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "champion_challenger.default_rate_approved": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Champion Challenger",
+			          "ConceptualProperty": "Default Rate Approved"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Default rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "champion_challenger.loss_per_1000_approved": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Champion Challenger",
+			          "ConceptualProperty": "Loss per 1000 Approved"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Loss / 1,000 loans": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fairness_check.gender": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Fairness Check",
+			          "ConceptualProperty": "Gender"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Gender": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fairness_check.approval_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Fairness Check",
+			          "ConceptualProperty": "Approval Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Approval": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fairness_check.default_rate_approved": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Fairness Check",
+			          "ConceptualProperty": "Default Rate Approved"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Default rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fairness_check.approval_ratio_vs_highest": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Fairness Check",
+			          "ConceptualProperty": "Approval Ratio vs Highest"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Ratio vs highest": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

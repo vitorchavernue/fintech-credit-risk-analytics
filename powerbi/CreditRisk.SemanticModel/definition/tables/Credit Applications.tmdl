@@ -1,0 +1,461 @@
+/// One row per loan application: outcome, credit score, risk grade and segment keys.
+table 'Credit Applications'
+	lineageTag: a4588837-e5e7-4cf8-acaa-d19db809a7ba
+
+	/// Number of loan applications.
+	measure Applications = COUNTROWS ( 'Credit Applications' )
+		formatString: #,0
+		displayFolder: 1. Portfolio
+		lineageTag: 2f137305-99b1-483f-87dc-f30a4ed66247
+
+	/// Customers who defaulted (had payment difficulties).
+	measure Defaults = SUM ( 'Credit Applications'[Defaulted] )
+		formatString: #,0
+		displayFolder: 1. Portfolio
+		lineageTag: d9446541-503b-464a-9844-e35b5ed47583
+
+	/// Share of customers who defaulted.
+	measure 'Default Rate' = DIVIDE ( [Defaults], [Applications] )
+		formatString: 0.00%
+		displayFolder: 1. Portfolio
+		lineageTag: f7a47ce3-2781-451f-a952-4c93ff9feff2
+
+	/// Default rate of the whole portfolio, ignoring every filter (reference line).
+	measure 'Portfolio Default Rate' = CALCULATE ( [Default Rate], REMOVEFILTERS ( 'Credit Applications' ) )
+		formatString: 0.00%
+		displayFolder: 1. Portfolio
+		lineageTag: 30d196ee-3ed1-4c30-83c9-0414bd67a479
+
+	/// Default rate compared with the portfolio average.
+	measure 'Risk Index' =
+			-- 1.0 = average risk; 2.0 = twice the portfolio default rate
+			DIVIDE ( [Default Rate], [Portfolio Default Rate] )
+		formatString: 0.00"x"
+		displayFolder: 1. Portfolio
+		lineageTag: 0ebb96f3-b77c-4e87-9e1a-8cb56a7058af
+
+	/// Lower limit of the 95% confidence interval of the default rate.
+	measure 'Default Rate CI Low' =
+			-- Wilson 95% confidence interval: reliable even for small segments
+			VAR n = [Applications]
+			VAR p = [Default Rate]
+			VAR z = 1.96
+			VAR centre = ( p + z ^ 2 / ( 2 * n ) ) / ( 1 + z ^ 2 / n )
+			VAR margin = z * SQRT ( p * ( 1 - p ) / n + z ^ 2 / ( 4 * n ^ 2 ) ) / ( 1 + z ^ 2 / n )
+			RETURN IF ( n > 0, MAX ( 0, centre - margin ) )
+		formatString: 0.00%
+		displayFolder: 1. Portfolio
+		lineageTag: 04cec971-2be2-4f97-b977-0b0da974feda
+
+	/// Upper limit of the 95% confidence interval of the default rate.
+	measure 'Default Rate CI High' =
+			-- Wilson 95% confidence interval: reliable even for small segments
+			VAR n = [Applications]
+			VAR p = [Default Rate]
+			VAR z = 1.96
+			VAR centre = ( p + z ^ 2 / ( 2 * n ) ) / ( 1 + z ^ 2 / n )
+			VAR margin = z * SQRT ( p * ( 1 - p ) / n + z ^ 2 / ( 4 * n ^ 2 ) ) / ( 1 + z ^ 2 / n )
+			RETURN IF ( n > 0, MIN ( 1, centre + margin ) )
+		formatString: 0.00%
+		displayFolder: 1. Portfolio
+		lineageTag: 1d244a73-8669-4c22-865e-fa2f3454cf91
+
+	/// Total amount lent.
+	measure 'Total Credit Amount' = SUM ( 'Credit Applications'[Credit Amount] )
+		formatString: #,0
+		displayFolder: 1. Portfolio
+		lineageTag: a3954d8c-0bb4-41cc-a349-83039ac3917f
+
+	/// Loan amount of defaulted customers times the loss given default.
+	measure 'Estimated Loss' =
+			-- money lost on loans that defaulted: loan amount x loss given default
+			SUMX ( 'Credit Applications', 'Credit Applications'[Credit Amount] * 'Credit Applications'[Defaulted] ) * [Loss Given Default Value]
+		formatString: #,0
+		displayFolder: 1. Portfolio
+		lineageTag: 0b1b4ee7-50e4-431d-a5d7-f99f8b628019
+
+	/// Average credit score (higher = safer).
+	measure 'Average Score' = AVERAGE ( 'Credit Applications'[Credit Score] )
+		formatString: 0
+		displayFolder: 2. Credit Score
+		lineageTag: 82052514-b699-483e-b6b0-73dccabe4252
+
+	/// Default rate predicted by the model; compare with the real Default Rate to check calibration.
+	measure 'Average Probability of Default' = AVERAGE ( 'Credit Applications'[Probability of Default] )
+		formatString: 0.00%
+		displayFolder: 2. Credit Score
+		lineageTag: 8256f540-b0d7-450f-9700-9b5d5f865d2c
+
+	/// Customers kept aside to measure the model (never seen in training).
+	measure 'Test Applications' = CALCULATE ( [Applications], 'Credit Applications'[Sample] = "test" )
+		formatString: #,0
+		displayFolder: 2. Credit Score
+		lineageTag: ea000f9e-2dff-46e8-a72a-a8ffb6929901
+
+	/// Share of customers approved at the selected cutoff.
+	measure 'Approval Rate (Cutoff)' =
+			-- share of unseen customers with a score at or above the selected cutoff
+			VAR Cutoff = [Cutoff Score Value]
+			VAR Tested = CALCULATE ( [Applications], 'Credit Applications'[Sample] = "test" )
+			VAR Approved = CALCULATE ( [Applications], 'Credit Applications'[Sample] = "test", 'Credit Applications'[Credit Score] >= Cutoff )
+			RETURN DIVIDE ( Approved, Tested )
+		formatString: 0.0%
+		displayFolder: 3. Credit Policy
+		lineageTag: 3b19bffc-038e-4a6e-9897-e7ebf61bf54f
+
+	/// Default rate of the customers approved at the selected cutoff.
+	measure 'Default Rate Approved (Cutoff)' =
+			VAR Cutoff = [Cutoff Score Value]
+			RETURN CALCULATE ( [Default Rate], 'Credit Applications'[Sample] = "test", 'Credit Applications'[Credit Score] >= Cutoff )
+		formatString: 0.00%
+		displayFolder: 3. Credit Policy
+		lineageTag: 929e31f4-7ba3-433b-8558-fcabb69e1f6c
+
+	/// Share of defaults avoided by rejecting scores below the cutoff.
+	measure 'Defaults Avoided % (Cutoff)' =
+			-- share of all bad customers that the cutoff rejects
+			VAR Cutoff = [Cutoff Score Value]
+			VAR Rejected = CALCULATE ( [Defaults], 'Credit Applications'[Sample] = "test", 'Credit Applications'[Credit Score] < Cutoff )
+			RETURN DIVIDE ( Rejected, CALCULATE ( [Defaults], 'Credit Applications'[Sample] = "test" ) )
+		formatString: 0.0%
+		displayFolder: 3. Credit Policy
+		lineageTag: 357d5dd8-13bc-4d59-b502-06defb4ada94
+
+	/// Customers who would have paid but are rejected by the cutoff.
+	measure 'Good Customers Rejected (Cutoff)' =
+			VAR Cutoff = [Cutoff Score Value]
+			RETURN CALCULATE ( [Applications], 'Credit Applications'[Sample] = "test", 'Credit Applications'[Credit Score] < Cutoff, 'Credit Applications'[Defaulted] = 0 )
+		formatString: #,0
+		displayFolder: 3. Credit Policy
+		lineageTag: ccfab419-5874-4d09-a932-ba956585e9c0
+
+	/// Money not lost because bad customers below the cutoff are rejected.
+	measure 'Loss Avoided (Cutoff)' =
+			-- loans of rejected bad customers x loss given default
+			VAR Cutoff = [Cutoff Score Value]
+			RETURN
+			    CALCULATE ( SUMX ( 'Credit Applications', 'Credit Applications'[Credit Amount] * 'Credit Applications'[Defaulted] ), 'Credit Applications'[Sample] = "test", 'Credit Applications'[Credit Score] < Cutoff )
+			        * [Loss Given Default Value]
+		formatString: #,0
+		displayFolder: 3. Credit Policy
+		lineageTag: 2849bdb5-cc89-4522-885a-6a17e1927f11
+
+	/// Profit not earned from good customers rejected by the cutoff.
+	measure 'Margin Lost (Cutoff)' =
+			-- loans of rejected good customers x net margin
+			VAR Cutoff = [Cutoff Score Value]
+			RETURN
+			    CALCULATE ( [Total Credit Amount], 'Credit Applications'[Sample] = "test", 'Credit Applications'[Credit Score] < Cutoff, 'Credit Applications'[Defaulted] = 0 )
+			        * [Net Margin Value]
+		formatString: #,0
+		displayFolder: 3. Credit Policy
+		lineageTag: 3edc50b4-1b11-4715-8f45-3337a16af75c
+
+	/// Loss avoided minus margin lost, compared with approving everybody.
+	measure 'Net Benefit (Cutoff)' = [Loss Avoided (Cutoff)] - [Margin Lost (Cutoff)]
+		formatString: #,0
+		displayFolder: 3. Credit Policy
+		lineageTag: 6d42afbd-4b3f-4ba1-a4ec-0de0901a3595
+
+	column 'Application ID'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 650fb683-c457-485d-8856-7ae6317d56ed
+		summarizeBy: none
+		sourceColumn: application_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Defaulted
+		dataType: int64
+		formatString: 0
+		lineageTag: c7fe499a-4156-4963-aba0-7ed99e4f1229
+		summarizeBy: sum
+		sourceColumn: defaulted
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sample
+		dataType: string
+		lineageTag: 91f1f0da-405a-4d8f-b397-e431af8c9b2a
+		summarizeBy: none
+		sourceColumn: sample
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Credit Score'
+		dataType: double
+		formatString: 0
+		lineageTag: 642778c7-9eb6-47c5-94e6-4705f3c47add
+		summarizeBy: none
+		sourceColumn: credit_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Probability of Default'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6b8887b9-81ca-450a-b336-0b619cddb7f9
+		summarizeBy: none
+		sourceColumn: probability_of_default
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Risk Grade'
+		dataType: string
+		isHidden
+		lineageTag: d874eafb-82de-48d8-8581-00a67804660b
+		summarizeBy: none
+		sourceColumn: risk_grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Type'
+		dataType: string
+		lineageTag: c8d69137-3d0d-44ae-8f5b-9f1a93a4b54f
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: a10b262f-959a-4a19-82e4-1d0500df0624
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income Type'
+		dataType: string
+		lineageTag: 8a87eb63-ae89-4825-a9bf-89c65586450d
+		summarizeBy: none
+		sourceColumn: income_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Housing Type'
+		dataType: string
+		lineageTag: 86aafa97-ef43-496d-9149-25d0106d05c7
+		summarizeBy: none
+		sourceColumn: housing_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Occupation
+		dataType: string
+		lineageTag: 52bda33a-590f-495c-8237-db71233844ff
+		summarizeBy: none
+		sourceColumn: occupation
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Region Rating'
+		dataType: int64
+		formatString: 0
+		lineageTag: 982cd220-cfe5-41ff-b234-6a79c5f89b84
+		summarizeBy: none
+		sourceColumn: region_rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Credit Amount'
+		dataType: double
+		formatString: #,0
+		lineageTag: e8ba1a9d-e928-4c71-b1fa-7e5dac89ec77
+		summarizeBy: sum
+		sourceColumn: credit_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Annual Income'
+		dataType: double
+		formatString: #,0
+		lineageTag: 75ebf91b-3d78-4e44-b3c9-e50141009751
+		summarizeBy: sum
+		sourceColumn: annual_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Annual Payment'
+		dataType: double
+		formatString: #,0
+		lineageTag: 486f9de7-3f90-44c5-8347-b04a701c6d6a
+		summarizeBy: sum
+		sourceColumn: annual_payment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Payment to Income'
+		dataType: double
+		formatString: 0.00
+		lineageTag: 7f014c7b-10b6-47f3-853a-f174f45fe9f9
+		summarizeBy: none
+		sourceColumn: payment_to_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Credit to Income'
+		dataType: double
+		formatString: 0.00
+		lineageTag: d611a118-4f9d-4e0f-9739-5a15b4f790b7
+		summarizeBy: none
+		sourceColumn: credit_to_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Years'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 0d71db8b-9241-4d65-aac5-85cb86b4e733
+		summarizeBy: none
+		sourceColumn: age_years
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Employment Not Reported'
+		dataType: boolean
+		lineageTag: 0068221a-9d8d-4ec3-bd17-d623852afce6
+		summarizeBy: none
+		sourceColumn: employment_not_reported
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bureau Credits'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0d61b291-1d61-48bf-942a-5d024f55abff
+		summarizeBy: none
+		sourceColumn: bureau_credits
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bureau Overdue Credits'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9bdc5de3-4b57-4ee1-b5b4-41e6f4222542
+		summarizeBy: none
+		sourceColumn: bureau_overdue_credits
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Previous Applications'
+		dataType: int64
+		formatString: #,0
+		lineageTag: c9e69375-f62a-4ffc-b52c-058f4c37f34c
+		summarizeBy: none
+		sourceColumn: previous_applications
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Previous Refused'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 14f4b48a-e852-40dd-be78-a9913fe5cf41
+		summarizeBy: none
+		sourceColumn: previous_refused
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Installments Due'
+		dataType: int64
+		formatString: #,0
+		lineageTag: d056828e-2db6-4cba-8234-0c495c1a9570
+		summarizeBy: none
+		sourceColumn: installments_due
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Late Installment Share'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 90597180-8517-4a33-9aba-30bdad06ef89
+		summarizeBy: none
+		sourceColumn: late_installment_share
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Education Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 03ccc35d-7b33-4f25-9b44-20e98e91f448
+		summarizeBy: none
+		sourceColumn: education_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Band Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 689d63c4-7cae-4e7d-aa23-67361494c5d9
+		summarizeBy: none
+		sourceColumn: age_band_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income Band Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c0c6de05-9e93-4d8f-9a36-357d271fb099
+		summarizeBy: none
+		sourceColumn: income_band_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Payment Burden Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 35af0fe1-1376-4748-8352-5c39c76464d4
+		summarizeBy: none
+		sourceColumn: payment_burden_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Payment Behavior Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cb229ee1-8293-40f3-bf67-b81625872919
+		summarizeBy: none
+		sourceColumn: payment_behavior_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bureau Status Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7a48c4fd-1081-4f84-a908-faee38c9559f
+		summarizeBy: none
+		sourceColumn: bureau_status_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Previous Refusals Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bfbf4870-222f-4167-a0e3-aeb2c8f6d96d
+		summarizeBy: none
+		sourceColumn: previous_refusals_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Credit Applications' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "fact_application_scored.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"application_id", Int64.Type}, {"defaulted", Int64.Type}, {"sample", type text}, {"credit_score", type number}, {"probability_of_default", type number}, {"risk_grade", type text}, {"contract_type", type text}, {"gender", type text}, {"income_type", type text}, {"housing_type", type text}, {"occupation", type text}, {"region_rating", Int64.Type}, {"credit_amount", type number}, {"annual_income", type number}, {"annual_payment", type number}, {"payment_to_income", type number}, {"credit_to_income", type number}, {"age_years", type number}, {"employment_not_reported", type logical}, {"bureau_credits", Int64.Type}, {"bureau_overdue_credits", Int64.Type}, {"previous_applications", Int64.Type}, {"previous_refused", Int64.Type}, {"installments_due", Int64.Type}, {"late_installment_share", type number}, {"education_key", Int64.Type}, {"age_band_key", Int64.Type}, {"income_band_key", Int64.Type}, {"payment_burden_key", Int64.Type}, {"payment_behavior_key", Int64.Type}, {"bureau_status_key", Int64.Type}, {"previous_refusals_key", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

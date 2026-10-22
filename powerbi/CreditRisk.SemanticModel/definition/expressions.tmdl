@@ -1,0 +1,6 @@
+/// Folder with the Parquet files exported by scripts/export_powerbi.py (must end with a backslash).
+expression DataFolder = "C:\dev\data\credit_powerbi\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 28080edb-f22a-4113-8397-69f44f940868
+
+	annotation PBI_ResultType = Text
+

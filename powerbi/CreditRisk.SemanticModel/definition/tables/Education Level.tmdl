@@ -1,0 +1,46 @@
+/// Education level of the applicant.
+table 'Education Level'
+	lineageTag: c66dad5b-5eee-426f-9334-257d7c6af6d4
+
+	column 'Education Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8ddf5920-cfda-4f27-92d4-8dbdfc59d6be
+		summarizeBy: none
+		sourceColumn: education_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Education Level'
+		dataType: string
+		lineageTag: abc7109f-3ce8-41e8-ad4e-331625229d41
+		summarizeBy: none
+		sourceColumn: education_level
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4fa302a4-d521-4062-8ec6-a21dd6f5f49c
+		summarizeBy: none
+		sourceColumn: sort_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Education Level' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "dim_education_level.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"education_key", Int64.Type}, {"education_level", type text}, {"sort_order", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

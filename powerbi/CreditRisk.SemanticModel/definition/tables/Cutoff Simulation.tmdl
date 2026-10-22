@@ -1,0 +1,148 @@
+/// Approval rate, defaults avoided and net benefit for each cutoff.
+table 'Cutoff Simulation'
+	lineageTag: 82b84826-0023-4207-b531-c08dfa312ae6
+
+	/// Minimum score with the highest net benefit in the pipeline simulation.
+	measure 'Recommended Cutoff' = CALCULATE ( MAX ( 'Cutoff Simulation'[Minimum Score] ), 'Cutoff Simulation'[Recommended] = TRUE () )
+		formatString: 0
+		displayFolder: Measures
+		lineageTag: 695a9bd3-8a7f-4341-b912-3544543edd9e
+
+	column 'Target Approval Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 5ba3dc24-97b4-4d26-a637-a0064151fbcb
+		summarizeBy: none
+		sourceColumn: target_approval_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minimum Score'
+		dataType: double
+		formatString: 0
+		lineageTag: 0ae28448-8bc3-434d-bb44-e07010a2bf6b
+		summarizeBy: none
+		sourceColumn: minimum_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column Approved
+		dataType: int64
+		formatString: #,0
+		lineageTag: fb0eb66a-aa00-438a-886a-8b2903b30f4f
+		summarizeBy: none
+		sourceColumn: approved
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Approval Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 18776d02-bad9-4d6b-817a-4a9461f5fc02
+		summarizeBy: none
+		sourceColumn: approval_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Rate Approved'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: dfb770f0-6ce0-448c-8193-9b9c68f0e550
+		summarizeBy: none
+		sourceColumn: default_rate_approved
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Rate Rejected'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: dfbdb9ba-18c9-441c-aed7-881e57507346
+		summarizeBy: none
+		sourceColumn: default_rate_rejected
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Defaults Avoided'
+		dataType: int64
+		formatString: #,0
+		lineageTag: e074de35-0dfe-45d4-8f0b-b7a748f3d5c9
+		summarizeBy: none
+		sourceColumn: defaults_avoided
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Share of Defaults Avoided'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: c619fc2b-4fef-414f-a2db-b6e704782fe7
+		summarizeBy: none
+		sourceColumn: share_of_defaults_avoided
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Good Customers Rejected'
+		dataType: int64
+		formatString: #,0
+		lineageTag: af267cfe-f447-4de6-b35f-51bb29eadab3
+		summarizeBy: none
+		sourceColumn: good_customers_rejected
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Credit Approved'
+		dataType: double
+		formatString: #,0
+		lineageTag: 63368808-d9b0-46fc-93d8-459500cb4a2c
+		summarizeBy: none
+		sourceColumn: credit_approved
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Loss Avoided'
+		dataType: double
+		formatString: #,0
+		lineageTag: 3ab1a0b3-35bb-4d46-b52f-7d826ac281e9
+		summarizeBy: none
+		sourceColumn: loss_avoided
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Margin Lost'
+		dataType: double
+		formatString: #,0
+		lineageTag: 5d589b97-3d11-443c-8b99-7a3ca100803d
+		summarizeBy: none
+		sourceColumn: margin_lost
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Net Benefit'
+		dataType: double
+		formatString: #,0
+		lineageTag: 141352e3-ecd0-4f7c-8134-f5af72f66561
+		summarizeBy: none
+		sourceColumn: net_benefit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Recommended
+		dataType: boolean
+		lineageTag: 6f1efde3-92d7-4165-9f89-8ec94f3410a0
+		summarizeBy: none
+		sourceColumn: recommended
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Cutoff Simulation' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "policy_cutoff_simulation.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"target_approval_rate", type number}, {"minimum_score", type number}, {"approved", Int64.Type}, {"approval_rate", type number}, {"default_rate_approved", type number}, {"default_rate_rejected", type number}, {"defaults_avoided", Int64.Type}, {"share_of_defaults_avoided", type number}, {"good_customers_rejected", Int64.Type}, {"credit_approved", type number}, {"loss_avoided", type number}, {"margin_lost", type number}, {"net_benefit", type number}, {"recommended", type logical}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

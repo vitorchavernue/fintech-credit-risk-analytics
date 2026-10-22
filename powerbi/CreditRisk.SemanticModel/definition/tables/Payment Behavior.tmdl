@@ -1,0 +1,46 @@
+/// How the customer paid earlier Home Credit installments.
+table 'Payment Behavior'
+	lineageTag: 0831d6cf-ce10-451e-bcc2-c5bcbfba48c1
+
+	column 'Payment Behavior Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: da795f74-fd96-4815-9adf-36057a9dc9ff
+		summarizeBy: none
+		sourceColumn: payment_behavior_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Payment Behavior'
+		dataType: string
+		lineageTag: d74fdcfc-65b3-47df-a544-a22f5c701ef3
+		summarizeBy: none
+		sourceColumn: payment_behavior
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c8eca610-564d-4458-9367-383e9e85dc53
+		summarizeBy: none
+		sourceColumn: sort_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Payment Behavior' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "dim_payment_behavior.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"payment_behavior_key", Int64.Type}, {"payment_behavior", type text}, {"sort_order", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

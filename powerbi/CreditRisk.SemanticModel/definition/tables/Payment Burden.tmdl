@@ -1,0 +1,46 @@
+/// Share of yearly income committed to the loan payments.
+table 'Payment Burden'
+	lineageTag: 5c24a68a-f176-4c37-80cb-74acbdc4c821
+
+	column 'Payment Burden Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f819b754-a84e-45bd-906b-62363f7c02a6
+		summarizeBy: none
+		sourceColumn: payment_burden_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Payment Burden'
+		dataType: string
+		lineageTag: 7fc36996-d511-42c4-8860-bf13c4b2e22f
+		summarizeBy: none
+		sourceColumn: payment_burden
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b3bbc9a3-bd72-49a3-a7b3-b2f99c179f2a
+		summarizeBy: none
+		sourceColumn: sort_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Payment Burden' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "dim_payment_burden.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"payment_burden_key", Int64.Type}, {"payment_burden", type text}, {"sort_order", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

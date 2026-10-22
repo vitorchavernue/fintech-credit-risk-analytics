@@ -1,0 +1,27 @@
+/// Slider: share of the loan lost when a customer defaults (%).
+table 'Loss Given Default'
+	lineageTag: 53b575c4-c761-4337-a191-e7dd47f8e53b
+
+	measure 'Loss Given Default Value' = DIVIDE ( SELECTEDVALUE ( 'Loss Given Default'[Loss Given Default %], 45 ), 100 )
+		formatString: 0%
+		lineageTag: 0888c6c3-2973-4b5c-a5e4-b6adf064fd72
+
+	column 'Loss Given Default %'
+		formatString: 0"%"
+		lineageTag: ae233e83-9074-41fe-b43e-69a869c626f0
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Loss Given Default' = calculated
+		mode: import
+		source = GENERATESERIES ( 20, 80, 5 )
+
+	annotation PBI_Id = 078d84e145f54e7986fba6f6d3d428d6
+

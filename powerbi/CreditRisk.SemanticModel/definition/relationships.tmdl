@@ -1,0 +1,32 @@
+relationship 2bcb67d9-b128-4955-8da9-e887c683b01b
+	fromColumn: 'Credit Applications'.'Payment Behavior Key'
+	toColumn: 'Payment Behavior'.'Payment Behavior Key'
+
+relationship d1f0ffff-9037-4f52-8139-31c93e6f76c8
+	fromColumn: 'Credit Applications'.'Bureau Status Key'
+	toColumn: 'Bureau Status'.'Bureau Status Key'
+
+relationship 5608b6ec-ef58-41fa-b143-f4c5d2c0e814
+	fromColumn: 'Credit Applications'.'Previous Refusals Key'
+	toColumn: 'Previous Refusals'.'Previous Refusals Key'
+
+relationship 91185fe5-74d8-4fbd-9d9a-b245f1ecf081
+	fromColumn: 'Credit Applications'.'Payment Burden Key'
+	toColumn: 'Payment Burden'.'Payment Burden Key'
+
+relationship 7aaa0e11-dedf-4182-863d-6c7bf685a396
+	fromColumn: 'Credit Applications'.'Age Band Key'
+	toColumn: 'Age Band'.'Age Band Key'
+
+relationship 6ea09f48-9b94-4238-be44-93accc570d4d
+	fromColumn: 'Credit Applications'.'Income Band Key'
+	toColumn: 'Income Band'.'Income Band Key'
+
+relationship 2c2620c7-d2cd-4445-8808-93acd558e190
+	fromColumn: 'Credit Applications'.'Education Key'
+	toColumn: 'Education Level'.'Education Key'
+
+relationship 24625509-8105-4c42-89e4-257148ff1872
+	fromColumn: 'Credit Applications'.'Risk Grade'
+	toColumn: 'Risk Grade'.'Risk Grade'
+

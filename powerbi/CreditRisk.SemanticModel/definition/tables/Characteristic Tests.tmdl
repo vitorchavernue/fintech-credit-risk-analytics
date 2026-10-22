@@ -1,0 +1,111 @@
+/// Information Value, chi-square and Cramér's V per characteristic.
+table 'Characteristic Tests'
+	lineageTag: f38a40ec-a862-4cc0-a0a9-b7e494dea6a2
+
+	column Dimension
+		dataType: string
+		lineageTag: 0e73229d-9a0f-4cf6-81a0-3d58f66a2955
+		summarizeBy: none
+		sourceColumn: dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segments
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d538233-26b6-439c-a454-2b1524c6192b
+		summarizeBy: none
+		sourceColumn: segments
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Information Value'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 2d1da5e7-b541-4f27-8048-e234f6f969cd
+		summarizeBy: none
+		sourceColumn: information_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Predictive Power'
+		dataType: string
+		lineageTag: e301ff93-3fb9-4d2e-a975-c80e7486f4f1
+		summarizeBy: none
+		sourceColumn: predictive_power
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Chi Square'
+		dataType: double
+		formatString: 0.000
+		lineageTag: aa216104-6d60-4bd1-b64d-6e03cfd68670
+		summarizeBy: none
+		sourceColumn: chi_square
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Degrees of Freedom'
+		dataType: int64
+		formatString: 0
+		lineageTag: c6090ddd-8982-4710-a82b-63f50d4f447f
+		summarizeBy: none
+		sourceColumn: degrees_of_freedom
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'P Value'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 60090436-4a71-4e58-b6a5-e7e29c185db5
+		summarizeBy: none
+		sourceColumn: p_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cramers V'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 93e996bc-9733-4d7d-a7ce-a3530daca910
+		summarizeBy: none
+		sourceColumn: cramers_v
+
+		annotation SummarizationSetBy = Automatic
+
+	column Significant
+		dataType: boolean
+		lineageTag: 9cff0148-4511-411b-bae9-e626b9bed80b
+		summarizeBy: none
+		sourceColumn: significant
+
+		annotation SummarizationSetBy = Automatic
+
+	column Use
+		dataType: string
+		lineageTag: dcd2a4a1-18e4-4d0c-a112-7416e936b6d6
+		summarizeBy: none
+		sourceColumn: use
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Characteristic name in plain words (payment behavior, bureau status...).
+	column Characteristic = SUBSTITUTE ( 'Characteristic Tests'[Dimension], "_", " " )
+		dataType: string
+		lineageTag: fb6daee6-f799-4aa7-b7e1-c0b797c0308d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Characteristic Tests' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "stats_dimension_tests.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"dimension", type text}, {"segments", Int64.Type}, {"information_value", type number}, {"predictive_power", type text}, {"chi_square", type number}, {"degrees_of_freedom", Int64.Type}, {"p_value", type number}, {"cramers_v", type number}, {"significant", type logical}, {"use", type text}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

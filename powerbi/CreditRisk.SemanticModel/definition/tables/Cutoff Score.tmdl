@@ -1,0 +1,27 @@
+/// Slider: minimum credit score to approve a loan.
+table 'Cutoff Score'
+	lineageTag: 24b537f7-8fd2-494d-a84f-78c6ac27efd0
+
+	measure 'Cutoff Score Value' = SELECTEDVALUE ( 'Cutoff Score'[Cutoff Score], 532 )
+		formatString: 0
+		lineageTag: 41baff3d-2eb9-40b1-9a13-f38e8225f3fc
+
+	column 'Cutoff Score'
+		formatString: 0
+		lineageTag: b770e6f0-9fad-4b84-a4e9-3cdfcf3462af
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Cutoff Score' = calculated
+		mode: import
+		source = GENERATESERIES ( 450, 650, 1 )
+
+	annotation PBI_Id = 3949105b6bdf442b8e13cdfcf3be6b1e
+

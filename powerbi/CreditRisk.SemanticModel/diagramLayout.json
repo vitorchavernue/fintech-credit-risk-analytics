@@ -1,0 +1,295 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 621.07267599430065,
+            "y": 641.21518850356483
+          },
+          "nodeIndex": "Age Band",
+          "nodeLineageTag": "f34e0025-77a3-4fcb-9d39-ca5616acf9e9",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 123.75471744948982,
+            "y": 437.58469748592779
+          },
+          "nodeIndex": "Bureau Status",
+          "nodeLineageTag": "4dbd6d3c-e57c-44a1-9be5-1d84a906b7c4",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1052.7083119244946,
+            "y": 271.60759425178242
+          },
+          "nodeIndex": "Champion Challenger",
+          "nodeLineageTag": "1f77f8d9-0aee-4d42-9805-036e4f1fa825",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1336.7083119244946,
+            "y": 271.60759425178242
+          },
+          "nodeIndex": "Characteristic Tests",
+          "nodeLineageTag": "5d5cddf7-a4b6-4227-aa94-abd2980a6fad",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 451.78167015019744,
+            "y": 288.20077429565981
+          },
+          "nodeIndex": "Credit Applications",
+          "nodeLineageTag": "1fde9f59-b731-49fc-935f-504e13a3bdd1",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1620.7083119244946,
+            "y": 309.60759425178242
+          },
+          "nodeIndex": "Cutoff Score",
+          "nodeLineageTag": "d212a0f3-7e6e-48cc-8b48-f08fe5eb5086",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1904.7083119244946,
+            "y": 271.60759425178242
+          },
+          "nodeIndex": "Cutoff Simulation",
+          "nodeLineageTag": "1b3bce64-abc4-41e3-8b93-15295e4829d7",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2188.7083119244944,
+            "y": 333.60759425178242
+          },
+          "nodeIndex": "Data Quality",
+          "nodeLineageTag": "ff751ec0-a4e8-40f2-84ae-9095009d2a1a",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 334.79614434265648,
+            "y": 641.20974532371247
+          },
+          "nodeIndex": "Education Level",
+          "nodeLineageTag": "9773d2aa-75c5-47d1-80ed-990670c141e9",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2472.7083119244944,
+            "y": 321.60759425178242
+          },
+          "nodeIndex": "Fairness Check",
+          "nodeLineageTag": "9e4a36b3-9d41-46a5-a03c-7a840b2aa63b",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2756.7083119244944,
+            "y": 271.60759425178242
+          },
+          "nodeIndex": "Hypothesis Tests",
+          "nodeLineageTag": "efd65d15-ec8d-4d4f-8ae0-10d40886b41a",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 793.42254416647779,
+            "y": 154.15512602235242
+          },
+          "nodeIndex": "Income Band",
+          "nodeLineageTag": "5582084d-84ba-4f2a-b5c6-1ba97cd7aa67",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3040.7083119244944,
+            "y": 309.60759425178242
+          },
+          "nodeIndex": "Loss Given Default",
+          "nodeLineageTag": "2187ea41-de6c-493a-804f-c548496985de",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3324.7083119244944,
+            "y": 297.60759425178242
+          },
+          "nodeIndex": "Model Drivers",
+          "nodeLineageTag": "e7b624aa-2d74-4f7c-9bc2-f4f0e16fd044",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3608.7083119244944,
+            "y": 297.60759425178242
+          },
+          "nodeIndex": "Model Performance",
+          "nodeLineageTag": "0e4ea8c6-e58f-4af3-b9a3-816a9a07ae19",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3892.7083119244944,
+            "y": 309.60759425178242
+          },
+          "nodeIndex": "Net Margin",
+          "nodeLineageTag": "e5015178-6cfd-4081-9884-46f52f64b38a",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 233.706159816933
+          },
+          "nodeIndex": "Payment Behavior",
+          "nodeLineageTag": "eada496a-ef00-45b0-8f57-f3e8111a4c85",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 818.70831192449464,
+            "y": 437.43736537899326
+          },
+          "nodeIndex": "Payment Burden",
+          "nodeLineageTag": "044a552f-e35d-445e-aef4-7e36f2955df1",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 554.77217460220538,
+            "y": -50
+          },
+          "nodeIndex": "Previous Refusals",
+          "nodeLineageTag": "38970305-2a85-4859-9cdf-8aa77578d7c5",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 268.938170364897,
+            "y": -18.698311118801939
+          },
+          "nodeIndex": "Risk Grade",
+          "nodeLineageTag": "65d46ba2-4f87-4c32-9d09-3b457526a706",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4176.7083119244944,
+            "y": 273.60759425178242
+          },
+          "nodeIndex": "Score Bands",
+          "nodeLineageTag": "906db4d1-1508-4927-9227-6dbc32b9b7b8",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

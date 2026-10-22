@@ -1,0 +1,156 @@
+/// Current rules vs credit score at the same approval rate.
+table 'Champion Challenger'
+	lineageTag: 8a715dc3-8056-43bb-95cd-d7398f574a8d
+
+	/// Change in the default rate of approved loans: credit score vs current rules (same approval rate).
+	measure 'Default Rate Reduction' = MAX ( 'Champion Challenger'[Relative Change] )
+		formatString: 0%
+		displayFolder: Measures
+		lineageTag: f1cfd287-0505-4da0-bc42-ea80da76afff
+
+	column Policy
+		dataType: string
+		lineageTag: 60e61b0c-8849-4eee-bf3b-5225545392f3
+		summarizeBy: none
+		sourceColumn: policy
+
+		annotation SummarizationSetBy = Automatic
+
+	column Applications
+		dataType: int64
+		formatString: #,0
+		lineageTag: d738744a-5e8f-4cd0-bc0e-f82d98ccfcd5
+		summarizeBy: none
+		sourceColumn: applications
+
+		annotation SummarizationSetBy = Automatic
+
+	column Approved
+		dataType: int64
+		formatString: #,0
+		lineageTag: d23373c1-46a4-4fa9-a4c2-7be938574306
+		summarizeBy: none
+		sourceColumn: approved
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Approval Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: ac5fb6be-602b-49c3-91f9-486b91a9f7c2
+		summarizeBy: none
+		sourceColumn: approval_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Defaults Approved'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 1e3d889b-a121-4bcd-8419-3bafac0e9453
+		summarizeBy: none
+		sourceColumn: defaults_approved
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Rate Approved'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e4aad668-d2cc-4c40-85be-b54505cde913
+		summarizeBy: none
+		sourceColumn: default_rate_approved
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Loss per 1000 Approved'
+		dataType: double
+		formatString: #,0
+		lineageTag: 957c4df0-0fb4-4fe5-9804-76979486bd40
+		summarizeBy: none
+		sourceColumn: loss_per_1000_approved
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minimum Score'
+		dataType: double
+		formatString: 0
+		lineageTag: 57dcf092-e8f8-431c-b5e4-b83446ca1565
+		summarizeBy: none
+		sourceColumn: minimum_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Difference pp'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 1e3d3b9d-d8e4-4535-8a67-a26151644c1d
+		summarizeBy: none
+		sourceColumn: difference_pp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Difference CI Low pp'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 1979eb8d-c365-423e-82fc-e14e72fba071
+		summarizeBy: none
+		sourceColumn: difference_ci_low_pp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Difference CI High pp'
+		dataType: double
+		formatString: 0.000
+		lineageTag: d99108a7-c396-4d86-8e6a-6be89841b3e6
+		summarizeBy: none
+		sourceColumn: difference_ci_high_pp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Relative Change'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 59812f7f-5129-4f2a-879e-f48e5a3dc455
+		summarizeBy: none
+		sourceColumn: relative_change
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'P Value'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 82a544c3-5811-4d4a-98b4-73695b64c292
+		summarizeBy: none
+		sourceColumn: p_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column Significant
+		dataType: boolean
+		lineageTag: 15096ed2-4073-438e-9528-9f9008d64e98
+		summarizeBy: none
+		sourceColumn: significant
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Live Test Applications per Arm'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9f820ab6-8647-4804-9225-0e9a45f853e7
+		summarizeBy: none
+		sourceColumn: live_test_applications_per_arm
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Champion Challenger' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "policy_champion_challenger.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"policy", type text}, {"applications", Int64.Type}, {"approved", Int64.Type}, {"approval_rate", type number}, {"defaults_approved", Int64.Type}, {"default_rate_approved", type number}, {"loss_per_1000_approved", type number}, {"minimum_score", type number}, {"difference_pp", type number}, {"difference_ci_low_pp", type number}, {"difference_ci_high_pp", type number}, {"relative_change", type number}, {"p_value", type number}, {"significant", type logical}, {"live_test_applications_per_arm", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

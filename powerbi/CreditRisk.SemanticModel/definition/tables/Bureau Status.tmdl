@@ -1,0 +1,46 @@
+/// Situation of the customer's loans at other institutions.
+table 'Bureau Status'
+	lineageTag: 4b43c508-bd2c-4a2b-8bed-3698dd4b626f
+
+	column 'Bureau Status Key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3ac67139-3c00-42e2-ac52-7349adc8398e
+		summarizeBy: none
+		sourceColumn: bureau_status_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bureau Status'
+		dataType: string
+		lineageTag: 24ff875e-119d-4de1-b3a0-51fbeec997bb
+		summarizeBy: none
+		sourceColumn: bureau_status
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2ecbac56-a5dc-47ba-bb1b-132f2bbfcd99
+		summarizeBy: none
+		sourceColumn: sort_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Bureau Status' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "dim_bureau_status.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"bureau_status_key", Int64.Type}, {"bureau_status", type text}, {"sort_order", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

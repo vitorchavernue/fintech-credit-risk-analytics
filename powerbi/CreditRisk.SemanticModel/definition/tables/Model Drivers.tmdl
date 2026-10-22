@@ -1,0 +1,90 @@
+/// Weight of each factor in the credit score.
+table 'Model Drivers'
+	lineageTag: 78bf02f7-12ac-41d6-ae47-57eab08a42f2
+
+	column Factor
+		dataType: string
+		lineageTag: 10b654bc-e49e-4faf-b162-b52e9c5d0c09
+		summarizeBy: none
+		sourceColumn: factor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: c0be4989-a032-429d-9bf9-d5447bf037f1
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Coefficient
+		dataType: double
+		formatString: 0.000
+		lineageTag: 104acb47-1ce9-452a-b104-031888ef5be8
+		summarizeBy: none
+		sourceColumn: coefficient
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Odds Ratio per Std'
+		dataType: double
+		formatString: 0.000
+		lineageTag: 29ed195d-e523-4545-850d-fd1c68b03b4b
+		summarizeBy: none
+		sourceColumn: odds_ratio_per_std
+
+		annotation SummarizationSetBy = Automatic
+
+	column Effect
+		dataType: string
+		lineageTag: ad0d9fbb-7214-43cd-bd5c-fca87551c00e
+		summarizeBy: none
+		sourceColumn: effect
+
+		annotation SummarizationSetBy = Automatic
+
+	column Importance
+		dataType: double
+		formatString: 0.000
+		lineageTag: 514d89a8-1faf-48bd-bbe5-0aeb6babe5ab
+		summarizeBy: none
+		sourceColumn: importance
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rank
+		dataType: int64
+		formatString: 0
+		lineageTag: 29784a47-1170-4df0-a421-4ef1a13e9a4d
+		summarizeBy: none
+		sourceColumn: rank
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Factor name, with the category for yes/no factors (e.g. Education level = Higher education).
+	column Driver =
+			IF (
+			    ISBLANK ( 'Model Drivers'[Category] ) || 'Model Drivers'[Category] = "",
+			    'Model Drivers'[Factor],
+			    'Model Drivers'[Factor] & " = " & 'Model Drivers'[Category]
+			)
+		dataType: string
+		lineageTag: c35e139e-b2b5-4cba-bf0d-c6271b0846c4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Model Drivers' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "model_drivers.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"factor", type text}, {"category", type text}, {"coefficient", type number}, {"odds_ratio_per_std", type number}, {"effect", type text}, {"importance", type number}, {"rank", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

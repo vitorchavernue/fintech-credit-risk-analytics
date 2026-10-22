@@ -1,0 +1,98 @@
+/// Unseen customers split into 10 equal score bands.
+table 'Score Bands'
+	lineageTag: 0596fbcc-9857-466b-a95d-143c38908794
+
+	column 'Score Band'
+		dataType: int64
+		formatString: 0
+		lineageTag: d2e7937a-3bba-4e5b-9c97-9ac757c81088
+		summarizeBy: none
+		sourceColumn: score_band
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Min Score'
+		dataType: double
+		formatString: 0
+		lineageTag: d75375e0-ccf7-46c5-b4a9-daa551d9c63b
+		summarizeBy: none
+		sourceColumn: min_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Max Score'
+		dataType: double
+		formatString: 0
+		lineageTag: b7fb1b97-e788-452e-bdba-33101f8b47e2
+		summarizeBy: none
+		sourceColumn: max_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customers
+		dataType: int64
+		formatString: #,0
+		lineageTag: d004b787-9953-4903-83b1-4dd9de3e8296
+		summarizeBy: none
+		sourceColumn: customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column Defaults
+		dataType: int64
+		formatString: #,0
+		lineageTag: 226dd6d5-24e4-4fce-ac47-349f16189cc3
+		summarizeBy: none
+		sourceColumn: defaults
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Avg Probability of Default'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 5bfa4ff6-4488-492f-b808-24b29ae0610f
+		summarizeBy: none
+		sourceColumn: avg_probability_of_default
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Rate'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 28f8b576-1a3a-4c62-8793-8e3efd7d399e
+		summarizeBy: none
+		sourceColumn: default_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cumulative Share of Defaults'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 35d22b16-ccc8-44f4-8a7d-51c636daa18e
+		summarizeBy: none
+		sourceColumn: cumulative_share_of_defaults
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cumulative Share of Customers'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 61ca2f34-855b-44da-bc10-afe790a9130b
+		summarizeBy: none
+		sourceColumn: cumulative_share_of_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Score Bands' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "agg_score_bands.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"score_band", Int64.Type}, {"min_score", type number}, {"max_score", type number}, {"customers", Int64.Type}, {"defaults", Int64.Type}, {"avg_probability_of_default", type number}, {"default_rate", type number}, {"cumulative_share_of_defaults", type number}, {"cumulative_share_of_customers", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,27 @@
+/// Slider: net profit of a repaid loan, as a share of the loan amount (%).
+table 'Net Margin'
+	lineageTag: e3c57115-26f1-4376-8461-3c7ad5c17a00
+
+	measure 'Net Margin Value' = DIVIDE ( SELECTEDVALUE ( 'Net Margin'[Net Margin %], 10 ), 100 )
+		formatString: 0%
+		lineageTag: 712589bf-6a23-43d4-9778-13db3826ece0
+
+	column 'Net Margin %'
+		formatString: 0"%"
+		lineageTag: 9dd56f09-8813-48dc-bb09-74ad811caed7
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Net Margin' = calculated
+		mode: import
+		source = GENERATESERIES ( 2, 30, 1 )
+
+	annotation PBI_Id = 379ce1bff15b46eaac9bca7c0656c6c1
+

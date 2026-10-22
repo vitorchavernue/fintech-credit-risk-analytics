@@ -1,0 +1,62 @@
+/// Risk grades A (best) to E (worst), defined by score ranges.
+table 'Risk Grade'
+	lineageTag: 25e574ec-87f6-4d6a-98c0-58aad4ecbcf9
+
+	column 'Risk Grade'
+		dataType: string
+		lineageTag: 2a3a8b80-5e75-4627-9a63-2d93941de9d1
+		summarizeBy: none
+		sourceColumn: risk_grade
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 7dc89f65-aa43-4fb6-84d4-b46daf0e1a7a
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Min Score'
+		dataType: double
+		formatString: 0
+		lineageTag: acb458d9-e2c3-4016-b66c-837f93362cc1
+		summarizeBy: none
+		sourceColumn: min_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Max Score'
+		dataType: double
+		formatString: 0
+		lineageTag: 8e7c9f9a-6085-42bf-b219-4d78d9a2f806
+		summarizeBy: none
+		sourceColumn: max_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7602a2f4-3f7f-4cfe-9f43-0eb6ce4bf74c
+		summarizeBy: none
+		sourceColumn: sort_order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Risk Grade' = m
+		mode: import
+		source =
+				let
+				    // Reads the table exported from the gold layer (one Parquet file per table)
+				    Source = Parquet.Document(File.Contents(DataFolder & "dim_risk_grade.parquet")),
+				    // Explicit data types, so the model never depends on type detection
+				    Typed = Table.TransformColumnTypes(Source, {{"risk_grade", type text}, {"description", type text}, {"min_score", type number}, {"max_score", type number}, {"sort_order", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+

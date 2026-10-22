@@ -1,0 +1,36 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+
+annotation PBI_QueryOrder = ["DataFolder", "Credit Applications", "Payment Behavior", "Bureau Status", "Previous Refusals", "Payment Burden", "Age Band", "Income Band", "Education Level", "Risk Grade", "Hypothesis Tests", "Characteristic Tests", "Model Performance", "Model Drivers", "Score Bands", "Cutoff Simulation", "Champion Challenger", "Fairness Check", "Data Quality"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Credit Applications'
+ref table 'Payment Behavior'
+ref table 'Bureau Status'
+ref table 'Previous Refusals'
+ref table 'Payment Burden'
+ref table 'Age Band'
+ref table 'Income Band'
+ref table 'Education Level'
+ref table 'Risk Grade'
+ref table 'Hypothesis Tests'
+ref table 'Characteristic Tests'
+ref table 'Model Performance'
+ref table 'Model Drivers'
+ref table 'Score Bands'
+ref table 'Cutoff Simulation'
+ref table 'Champion Challenger'
+ref table 'Fairness Check'
+ref table 'Data Quality'
+ref table 'Cutoff Score'
+ref table 'Loss Given Default'
+ref table 'Net Margin'
+
+ref cultureInfo en-US
+
