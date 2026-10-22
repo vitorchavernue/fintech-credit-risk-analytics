@@ -13,6 +13,5 @@ __pycache__/
 .venv/
 .databricks/
 # Power BI local cache and data exports
-powerbi/**/.pbi/cache.abf
-powerbi/**/.pbi/localSettings.json
+powerbi/**/.pbi/
 powerbi/data/
