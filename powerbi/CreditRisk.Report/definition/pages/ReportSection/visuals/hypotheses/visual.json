@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "hypotheses",
   "position": {
     "x": 88,
     "y": 452,
     "z": 10000,
-    "width": 1168,
     "height": 248,
+    "width": 1168,
     "tabOrder": 10000
   },
   "visual": {
@@ -78,8 +78,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {
@@ -352,7 +351,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Two-proportion tests \u00b7 Benjamini-Hochberg corrected'"
+                  "Value": "'Two-proportion tests · Benjamini-Hochberg corrected'"
                 }
               }
             },

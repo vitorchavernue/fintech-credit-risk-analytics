@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "bands",
   "position": {
     "x": 88,
     "y": 188,
     "z": 8000,
-    "width": 578,
     "height": 220,
+    "width": 578,
     "tabOrder": 8000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Score Bands.Score Band",
-              "nativeQueryRef": "Score Band"
+              "nativeQueryRef": "Score Band",
+              "active": true
             }
           ]
         },
@@ -71,8 +72,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {
@@ -370,7 +370,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'1 = lowest 10% of scores \u00b7 10 = highest'"
+                  "Value": "'1 = lowest 10% of scores · 10 = highest'"
                 }
               }
             },

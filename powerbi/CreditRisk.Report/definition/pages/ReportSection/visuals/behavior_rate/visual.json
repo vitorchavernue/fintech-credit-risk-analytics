@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "behavior_rate",
   "position": {
     "x": 678,
     "y": 188,
     "z": 9000,
-    "width": 578,
     "height": 252,
+    "width": 578,
     "tabOrder": 9000
   },
   "visual": {
@@ -27,26 +27,8 @@
                 }
               },
               "queryRef": "Payment Behavior.Payment Behavior",
-              "nativeQueryRef": "Payment Behavior"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Credit Applications"
-                    }
-                  },
-                  "Property": "Default Rate"
-                }
-              },
-              "queryRef": "Credit Applications.Default Rate",
-              "nativeQueryRef": "Default Rate",
-              "displayName": "Default rate"
+              "nativeQueryRef": "Payment Behavior",
+              "active": true
             }
           ]
         },
@@ -98,6 +80,25 @@
               "displayName": "95% CI high"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Credit Applications"
+                    }
+                  },
+                  "Property": "Default Rate"
+                }
+              },
+              "queryRef": "Credit Applications.Default Rate",
+              "nativeQueryRef": "Default Rate",
+              "displayName": "Default rate"
+            }
+          ]
         }
       },
       "sortDefinition": {
@@ -115,8 +116,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

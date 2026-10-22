@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "w_margin",
   "position": {
     "x": 874,
     "y": 84,
     "z": 5000,
-    "width": 381,
     "height": 108,
+    "width": 381,
     "tabOrder": 5000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Net Margin.Net Margin %",
-              "nativeQueryRef": "Net Margin %"
+              "nativeQueryRef": "Net Margin %",
+              "active": true
             }
           ]
         }

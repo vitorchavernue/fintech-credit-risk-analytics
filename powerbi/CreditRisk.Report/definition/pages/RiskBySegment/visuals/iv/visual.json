@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "iv",
   "position": {
     "x": 880,
     "y": 84,
     "z": 10000,
-    "width": 376,
     "height": 616,
+    "width": 376,
     "tabOrder": 10000
   },
   "visual": {
@@ -78,8 +78,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {
@@ -352,7 +351,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Information Value \u00b7 <0.02 useless \u00b7 0.1-0.3 medium'"
+                  "Value": "'Information Value · <0.02 useless · 0.1-0.3 medium'"
                 }
               }
             },

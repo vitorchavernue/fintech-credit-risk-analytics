@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "gains",
   "position": {
     "x": 678,
     "y": 188,
     "z": 9000,
-    "width": 578,
     "height": 220,
+    "width": 578,
     "tabOrder": 9000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Score Bands.Score Band",
-              "nativeQueryRef": "Score Band"
+              "nativeQueryRef": "Score Band",
+              "active": true
             }
           ]
         },
@@ -71,8 +72,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

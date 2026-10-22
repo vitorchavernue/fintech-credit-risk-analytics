@@ -349,7 +349,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Same approval rate \u00b7 difference significant (p < 1e-16)'"
+                  "Value": "'Same approval rate · difference significant (p < 1e-16)'"
                 }
               }
             },

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "seg_age",
   "position": {
     "x": 484,
     "y": 454,
     "z": 9000,
-    "width": 384,
     "height": 246,
+    "width": 384,
     "tabOrder": 9000
   },
   "visual": {
@@ -27,26 +27,8 @@
                 }
               },
               "queryRef": "Age Band.Age Band",
-              "nativeQueryRef": "Age Band"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Credit Applications"
-                    }
-                  },
-                  "Property": "Default Rate"
-                }
-              },
-              "queryRef": "Credit Applications.Default Rate",
-              "nativeQueryRef": "Default Rate",
-              "displayName": "Default rate"
+              "nativeQueryRef": "Age Band",
+              "active": true
             }
           ]
         },
@@ -113,6 +95,25 @@
               "displayName": "x portfolio average"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Credit Applications"
+                    }
+                  },
+                  "Property": "Default Rate"
+                }
+              },
+              "queryRef": "Credit Applications.Default Rate",
+              "nativeQueryRef": "Default Rate",
+              "displayName": "Default rate"
+            }
+          ]
         }
       },
       "sortDefinition": {
@@ -130,8 +131,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

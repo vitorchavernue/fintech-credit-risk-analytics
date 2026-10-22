@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "w_cutoff",
   "position": {
     "x": 88,
     "y": 84,
     "z": 3000,
-    "width": 381,
     "height": 108,
+    "width": 381,
     "tabOrder": 3000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Cutoff Score.Cutoff Score",
-              "nativeQueryRef": "Cutoff Score"
+              "nativeQueryRef": "Cutoff Score",
+              "active": true
             }
           ]
         }

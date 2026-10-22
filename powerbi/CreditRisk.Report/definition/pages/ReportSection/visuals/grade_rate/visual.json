@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "grade_rate",
   "position": {
     "x": 88,
     "y": 188,
     "z": 8000,
-    "width": 578,
     "height": 252,
+    "width": 578,
     "tabOrder": 8000
   },
   "visual": {
@@ -27,26 +27,8 @@
                 }
               },
               "queryRef": "Risk Grade.Risk Grade",
-              "nativeQueryRef": "Risk Grade"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Credit Applications"
-                    }
-                  },
-                  "Property": "Default Rate"
-                }
-              },
-              "queryRef": "Credit Applications.Default Rate",
-              "nativeQueryRef": "Default Rate",
-              "displayName": "Default rate"
+              "nativeQueryRef": "Risk Grade",
+              "active": true
             }
           ]
         },
@@ -68,6 +50,25 @@
               "displayName": "Applications"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Credit Applications"
+                    }
+                  },
+                  "Property": "Default Rate"
+                }
+              },
+              "queryRef": "Credit Applications.Default Rate",
+              "nativeQueryRef": "Default Rate",
+              "displayName": "Default rate"
+            }
+          ]
         }
       },
       "sortDefinition": {
@@ -85,8 +86,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {
@@ -377,7 +377,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'A = best 20% of scores \u00b7 E = worst 20%'"
+                  "Value": "'A = best 20% of scores · E = worst 20%'"
                 }
               }
             },

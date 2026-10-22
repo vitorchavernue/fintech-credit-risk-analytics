@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "calibration",
   "position": {
     "x": 88,
     "y": 420,
     "z": 10000,
-    "width": 578,
     "height": 280,
+    "width": 578,
     "tabOrder": 10000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Risk Grade.Risk Grade",
-              "nativeQueryRef": "Risk Grade"
+              "nativeQueryRef": "Risk Grade",
+              "active": true
             }
           ]
         },
@@ -81,8 +82,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

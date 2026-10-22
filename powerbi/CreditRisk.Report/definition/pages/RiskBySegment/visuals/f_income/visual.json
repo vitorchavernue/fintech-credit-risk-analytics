@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "f_income",
   "position": {
     "x": 88,
     "y": 84,
     "z": 3000,
-    "width": 280,
     "height": 100,
+    "width": 280,
     "tabOrder": 3000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Credit Applications.Income Type",
-              "nativeQueryRef": "Income Type"
+              "nativeQueryRef": "Income Type",
+              "active": true
             }
           ]
         }

@@ -349,7 +349,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Gender is not used by the model \u00b7 four-fifths rule: ratio \u2265 0.80'"
+                  "Value": "'Gender is not used by the model · four-fifths rule: ratio ≥ 0.80'"
                 }
               }
             },

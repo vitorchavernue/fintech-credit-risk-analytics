@@ -11,16 +11,26 @@
       "type": "RegisteredResources"
     }
   },
+  "objects": {
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
   "resourcePackages": [
     {
       "name": "RegisteredResources",
       "type": "RegisteredResources",
       "items": [
-        {
-          "name": "CreditRiskTheme.json",
-          "path": "CreditRiskTheme.json",
-          "type": "BaseTheme"
-        },
         {
           "name": "bg_0_Home.png",
           "path": "bg_0_Home.png",
@@ -45,6 +55,11 @@
           "name": "bg_4_CreditPolicy.png",
           "path": "bg_4_CreditPolicy.png",
           "type": "Image"
+        },
+        {
+          "name": "CreditRiskTheme.json",
+          "path": "CreditRiskTheme.json",
+          "type": "BaseTheme"
         }
       ]
     }

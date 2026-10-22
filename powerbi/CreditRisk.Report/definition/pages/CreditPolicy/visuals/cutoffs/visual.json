@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "cutoffs",
   "position": {
     "x": 88,
     "y": 304,
     "z": 11000,
-    "width": 700,
     "height": 396,
+    "width": 700,
     "tabOrder": 11000
   },
   "visual": {
@@ -27,31 +27,8 @@
                 }
               },
               "queryRef": "Cutoff Simulation.Target Approval Rate",
-              "nativeQueryRef": "Target Approval Rate"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Cutoff Simulation"
-                        }
-                      },
-                      "Property": "Net Benefit"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(Cutoff Simulation.Net Benefit)",
-              "nativeQueryRef": "Sum of Net Benefit",
-              "displayName": "Net benefit"
+              "nativeQueryRef": "Target Approval Rate",
+              "active": true
             }
           ]
         },
@@ -98,6 +75,30 @@
               "displayName": "Default rate approved"
             }
           ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Cutoff Simulation"
+                        }
+                      },
+                      "Property": "Net Benefit"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Cutoff Simulation.Net Benefit)",
+              "nativeQueryRef": "Sum of Net Benefit",
+              "displayName": "Net benefit"
+            }
+          ]
         }
       },
       "sortDefinition": {
@@ -115,8 +116,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {
@@ -414,7 +414,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Loss avoided - margin lost, vs approving everybody \u00b7 best point: approve ~90%'"
+                  "Value": "'Loss avoided - margin lost, vs approving everybody · best point: approve ~90%'"
                 }
               }
             },
