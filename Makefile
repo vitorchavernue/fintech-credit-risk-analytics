@@ -3,7 +3,7 @@ PY ?= python
 export PYTHONPATH := src
 export CREDIT_RAW_DIR ?= sample_data/raw/home_credit
 
-.PHONY: setup lint test sample-data pipeline charts all wheel clean
+.PHONY: setup lint test sample-data pipeline powerbi-data charts all wheel clean
 
 setup:
 	$(PY) -m pip install -r requirements.txt
@@ -24,6 +24,10 @@ pipeline:
 	$(PY) -m credit.pipeline --step all
 
 # README charts from the gold tables
+# Gold tables as Parquet files for the Power BI report (DataFolder parameter)
+powerbi-data:
+	$(PY) scripts/export_powerbi.py --out powerbi/data
+
 charts:
 	$(PY) scripts/make_charts.py --out docs/images
 
