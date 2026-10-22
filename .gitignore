@@ -1,0 +1,18 @@
+# Data is never committed: real files come from Kaggle, tables are rebuilt by the pipeline
+data/
+spark-warehouse/
+metastore_db/
+derby.log
+reports/
+dist/
+build/
+*.egg-info/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+.databricks/
+# Power BI local cache and data exports
+powerbi/**/.pbi/cache.abf
+powerbi/**/.pbi/localSettings.json
+powerbi/data/

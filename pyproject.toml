@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "credit"
+version = "1.0.0"
+description = "Fintech credit risk analytics: Databricks (PySpark, Spark SQL, Delta), statistics, credit scorecard and Power BI"
+requires-python = ">=3.10"
+# PySpark is provided by Databricks; locally it comes from requirements.txt
+dependencies = ["numpy>=1.24", "pandas>=2.0", "scipy>=1.10", "pyarrow>=14"]
+
+[project.scripts]
+credit-pipeline = "credit.pipeline:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+credit = ["sql/gold/*.sql"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+extend-exclude = ["data", "notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["credit"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
