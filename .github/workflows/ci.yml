@@ -1,0 +1,48 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Lint
+        run: make lint
+
+      - name: Unit tests (statistics, cleaning rules, scorecard, credit policy)
+        run: make test
+
+      # Same code as the Databricks job, on the synthetic sample, writing Delta tables:
+      # bronze -> silver -> gold -> quality gate -> statistics -> scorecard -> policy -> findings
+      - name: Run the full pipeline on the sample data (Delta Lake)
+        env:
+          CREDIT_TABLE_FORMAT: delta
+        run: make pipeline
+
+      - name: Build the package deployed to Databricks
+        run: make wheel
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: reports/
