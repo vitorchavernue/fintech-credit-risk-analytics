@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "header",
   "position": {
-    "x": 20,
-    "y": 4,
+    "x": 128,
+    "y": 8,
     "z": 1000,
-    "width": 1240,
-    "height": 82,
+    "width": 10,
+    "height": 10,
     "tabOrder": 1000
   },
   "visual": {
@@ -19,23 +19,8 @@
               {
                 "textRuns": [
                   {
-                    "value": "Credit Policy Simulator",
-                    "textStyle": {
-                      "fontWeight": "bold",
-                      "fontSize": "18pt",
-                      "color": "#0B0B0B"
-                    }
-                  }
-                ]
-              },
-              {
-                "textRuns": [
-                  {
-                    "value": "Move the sliders: results recalculate on the 92k customers never seen by the model",
-                    "textStyle": {
-                      "fontSize": "10pt",
-                      "color": "#52514E"
-                    }
+                    "value": "",
+                    "textStyle": {}
                   }
                 ]
               }
@@ -71,6 +56,32 @@
           }
         }
       ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
       "padding": [
         {
           "properties": {
@@ -91,27 +102,14 @@
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
+                  "Value": "0D"
                 }
               }
             },
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "visualHeader": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+                  "Value": "14D"
                 }
               }
             }
@@ -132,5 +130,6 @@
         }
       ]
     }
-  }
+  },
+  "isHidden": true
 }

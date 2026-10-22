@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "iv",
   "position": {
-    "x": 872,
-    "y": 88,
-    "z": 9000,
-    "height": 612,
-    "width": 384,
-    "tabOrder": 9000
+    "x": 880,
+    "y": 84,
+    "z": 10000,
+    "width": 376,
+    "height": 616,
+    "tabOrder": 10000
   },
   "visual": {
     "visualType": "tableEx",
@@ -78,7 +78,8 @@
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": false
       }
     },
     "objects": {
@@ -90,7 +91,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B0B0B'"
+                      "Value": "'#0D2A5C'"
                     }
                   }
                 }
@@ -101,7 +102,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#EEF3FB'"
+                      "Value": "'#EAF1FD'"
                     }
                   }
                 }
@@ -139,7 +140,29 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B0B0B'"
+                      "Value": "'#0F1B33'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColorPrimary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColorSecondary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F7F9FD'"
                     }
                   }
                 }
@@ -156,7 +179,18 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#ECEBE7'"
+                      "Value": "'#EDF1F7'"
+                    }
+                  }
+                }
+              }
+            },
+            "outlineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E2E8F2'"
                     }
                   }
                 }
@@ -173,25 +207,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#FFFFFF'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
+                  "Value": "false"
                 }
               }
             }
@@ -204,25 +220,33 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#E3E2DE'"
-                    }
-                  }
-                }
-              }
-            },
-            "radius": {
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -249,27 +273,14 @@
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
+                  "Value": "20D"
                 }
               }
             },
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "visualHeader": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+                  "Value": "14D"
                 }
               }
             }
@@ -298,7 +309,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B0B0B'"
+                      "Value": "'#0F1B33'"
                     }
                   }
                 }
@@ -315,6 +326,13 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
                 }
               }
             }
@@ -334,7 +352,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Information Value: <0.02 useless · 0.02-0.1 weak · 0.1-0.3 medium'"
+                  "Value": "'Information Value \u00b7 <0.02 useless \u00b7 0.1-0.3 medium'"
                 }
               }
             },
@@ -343,7 +361,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#52514E'"
+                      "Value": "'#5B6B85'"
                     }
                   }
                 }

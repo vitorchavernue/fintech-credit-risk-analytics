@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "grade_rate",
   "position": {
-    "x": 24,
-    "y": 200,
-    "z": 7000,
-    "height": 250,
-    "width": 600,
-    "tabOrder": 7000
+    "x": 88,
+    "y": 188,
+    "z": 8000,
+    "width": 578,
+    "height": 252,
+    "tabOrder": 8000
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -27,27 +27,7 @@
                 }
               },
               "queryRef": "Risk Grade.Risk Grade",
-              "nativeQueryRef": "Risk Grade",
-              "active": true
-            }
-          ]
-        },
-        "Tooltips": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Credit Applications"
-                    }
-                  },
-                  "Property": "Applications"
-                }
-              },
-              "queryRef": "Credit Applications.Applications",
-              "nativeQueryRef": "Applications",
-              "displayName": "Applications"
+              "nativeQueryRef": "Risk Grade"
             }
           ]
         },
@@ -69,6 +49,25 @@
               "displayName": "Default rate"
             }
           ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Credit Applications"
+                    }
+                  },
+                  "Property": "Applications"
+                }
+              },
+              "queryRef": "Credit Applications.Applications",
+              "nativeQueryRef": "Applications",
+              "displayName": "Applications"
+            }
+          ]
         }
       },
       "sortDefinition": {
@@ -86,7 +85,8 @@
             },
             "direction": "Ascending"
           }
-        ]
+        ],
+        "isDefaultSort": false
       }
     },
     "objects": {
@@ -105,7 +105,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B0B0B'"
+                      "Value": "'#0F1B33'"
                     }
                   }
                 }
@@ -149,7 +149,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#ECEBE7'"
+                      "Value": "'#E9EEF6'"
                     }
                   }
                 }
@@ -159,6 +159,17 @@
               "expr": {
                 "Literal": {
                   "Value": "9D"
+                }
+              }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#5B6B85'"
+                    }
+                  }
                 }
               }
             }
@@ -181,6 +192,17 @@
                   "Value": "false"
                 }
               }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#5B6B85'"
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -193,7 +215,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#2A78D6'"
+                      "Value": "'#1E5FD0'"
                     }
                   }
                 }
@@ -210,25 +232,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#FFFFFF'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
+                  "Value": "false"
                 }
               }
             }
@@ -241,25 +245,33 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#E3E2DE'"
-                    }
-                  }
-                }
-              }
-            },
-            "radius": {
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -286,27 +298,14 @@
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
+                  "Value": "20D"
                 }
               }
             },
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "visualHeader": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+                  "Value": "14D"
                 }
               }
             }
@@ -335,7 +334,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B0B0B'"
+                      "Value": "'#0F1B33'"
                     }
                   }
                 }
@@ -352,6 +351,13 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
                 }
               }
             }
@@ -371,7 +377,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'A = best 20% of scores · E = worst 20%'"
+                  "Value": "'A = best 20% of scores \u00b7 E = worst 20%'"
                 }
               }
             },
@@ -380,7 +386,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#52514E'"
+                      "Value": "'#5B6B85'"
                     }
                   }
                 }

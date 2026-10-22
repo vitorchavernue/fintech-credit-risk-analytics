@@ -20,6 +20,31 @@
           "name": "CreditRiskTheme.json",
           "path": "CreditRiskTheme.json",
           "type": "BaseTheme"
+        },
+        {
+          "name": "bg_0_Home.png",
+          "path": "bg_0_Home.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_1_ReportSection.png",
+          "path": "bg_1_ReportSection.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_2_RiskBySegment.png",
+          "path": "bg_2_RiskBySegment.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_3_CreditScore.png",
+          "path": "bg_3_CreditScore.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_4_CreditPolicy.png",
+          "path": "bg_4_CreditPolicy.png",
+          "type": "Image"
         }
       ]
     }

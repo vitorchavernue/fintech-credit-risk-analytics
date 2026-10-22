@@ -140,7 +140,7 @@ cultureInfo en-US
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Estimated loss (LGD slider)": {
+			          "Estimated loss": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -368,19 +368,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "Default Rate A"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Group A": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "hypothesis_tests.default_rate_b": {
 			      "Definition": {
@@ -389,19 +377,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "Default Rate B"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "Group B": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "hypothesis_tests.relative_risk": {
 			      "Definition": {
@@ -434,7 +410,7 @@ cultureInfo en-US
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Conclusion": {
+			          "Conclusion (group A vs group B)": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -455,7 +431,7 @@ cultureInfo en-US
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Score AUC (unseen customers)": {
+			          "Score AUC (unseen)": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

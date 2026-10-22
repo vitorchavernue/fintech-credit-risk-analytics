@@ -1,13 +1,13 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
   "name": "hypotheses",
   "position": {
-    "x": 24,
-    "y": 466,
-    "z": 9000,
-    "height": 238,
-    "width": 1232,
-    "tabOrder": 9000
+    "x": 88,
+    "y": 452,
+    "z": 10000,
+    "width": 1168,
+    "height": 248,
+    "tabOrder": 10000
   },
   "visual": {
     "visualType": "tableEx",
@@ -38,36 +38,6 @@
                       "Entity": "Hypothesis Tests"
                     }
                   },
-                  "Property": "Default Rate A"
-                }
-              },
-              "queryRef": "Hypothesis Tests.Default Rate A",
-              "nativeQueryRef": "Default Rate A",
-              "displayName": "Group A"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Hypothesis Tests"
-                    }
-                  },
-                  "Property": "Default Rate B"
-                }
-              },
-              "queryRef": "Hypothesis Tests.Default Rate B",
-              "nativeQueryRef": "Default Rate B",
-              "displayName": "Group B"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Hypothesis Tests"
-                    }
-                  },
                   "Property": "Relative Risk"
                 }
               },
@@ -88,7 +58,7 @@
               },
               "queryRef": "Hypothesis Tests.Conclusion",
               "nativeQueryRef": "Conclusion",
-              "displayName": "Conclusion"
+              "displayName": "Conclusion (group A vs group B)"
             }
           ]
         }
@@ -108,7 +78,8 @@
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": false
       }
     },
     "objects": {
@@ -120,7 +91,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B0B0B'"
+                      "Value": "'#0D2A5C'"
                     }
                   }
                 }
@@ -131,7 +102,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#EEF3FB'"
+                      "Value": "'#EAF1FD'"
                     }
                   }
                 }
@@ -169,7 +140,29 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B0B0B'"
+                      "Value": "'#0F1B33'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColorPrimary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColorSecondary": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F7F9FD'"
                     }
                   }
                 }
@@ -186,7 +179,18 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#ECEBE7'"
+                      "Value": "'#EDF1F7'"
+                    }
+                  }
+                }
+              }
+            },
+            "outlineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E2E8F2'"
                     }
                   }
                 }
@@ -203,25 +207,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#FFFFFF'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
+                  "Value": "false"
                 }
               }
             }
@@ -234,25 +220,33 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#E3E2DE'"
-                    }
-                  }
-                }
-              }
-            },
-            "radius": {
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
               "expr": {
                 "Literal": {
-                  "Value": "8D"
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -279,27 +273,14 @@
             "left": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
+                  "Value": "20D"
                 }
               }
             },
             "right": {
               "expr": {
                 "Literal": {
-                  "Value": "12D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "visualHeader": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+                  "Value": "14D"
                 }
               }
             }
@@ -328,7 +309,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0B0B0B'"
+                      "Value": "'#0F1B33'"
                     }
                   }
                 }
@@ -345,6 +326,13 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI Semibold'"
                 }
               }
             }
@@ -364,7 +352,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Two-proportion tests, Benjamini-Hochberg corrected'"
+                  "Value": "'Two-proportion tests \u00b7 Benjamini-Hochberg corrected'"
                 }
               }
             },
@@ -373,7 +361,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#52514E'"
+                      "Value": "'#5B6B85'"
                     }
                   }
                 }
