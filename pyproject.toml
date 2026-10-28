@@ -33,3 +33,7 @@ known-first-party = ["credit"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+
+[tool.ruff.lint.per-file-ignores]
+# SVG markup and texts of the architecture diagrams
+"scripts/build_architecture.py" = ["E501"]
